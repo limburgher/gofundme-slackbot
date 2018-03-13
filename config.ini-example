@@ -1,0 +1,5 @@
+[Options]
+url=YOURURL
+goal=$10,000
+token=YOURSLACKTOKEN
+channel=#yourchannel

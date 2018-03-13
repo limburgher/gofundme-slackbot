@@ -19,10 +19,18 @@
 import requests
 import sys
 import re
+import configparser
 from slackclient import SlackClient
 
-GOAL = '$10,000'
-URL = 'https://www.gofundme.com/aurorapride2018'
+CONFIGFILENAME = 'config.ini'
+CONFIG = configparser.SafeConfigParser()
+CONFIG.read(CONFIGFILENAME)
+SECTIONS = CONFIG.sections()
+
+URL = str(CONFIG.get("Options", "url"))
+GOAL = str(CONFIG.get("Options", "goal"))
+SLACK_TOKEN = str(CONFIG.get("Options", "token"))
+CHANNEL = str(CONFIG.get("Options", "channel"))
 
 OUTPUT = requests.get(URL) 
 LINES = OUTPUT.text.split('\n')
@@ -36,13 +44,10 @@ for line in LINES:
 
 STATUS = TOTAL + ' of ' + GOAL + ' raised'
 
-with open('slack_token_gofundme.txt', 'r') as myfile:
-	slack_token = myfile.read().replace('\n', '')
-
-sc = SlackClient(slack_token)
+sc = SlackClient(SLACK_TOKEN)
 
 sc.api_call(
 	"chat.postMessage",
-	channel="#lgbtq",
+	channel=CHANNEL,
 	text=STATUS
 )
