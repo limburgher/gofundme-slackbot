@@ -16,10 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import requests
-import sys
 import re
 import configparser
+import requests
 from slackclient import SlackClient
 
 CONFIGFILENAME = 'config.ini'
@@ -32,22 +31,22 @@ GOAL = str(CONFIG.get("Options", "goal"))
 SLACK_TOKEN = str(CONFIG.get("Options", "token"))
 CHANNEL = str(CONFIG.get("Options", "channel"))
 
-OUTPUT = requests.get(URL) 
+OUTPUT = requests.get(URL)
 LINES = OUTPUT.text.split('\n')
 COUNT = 0
 for line in LINES:
-	if 'of ' + GOAL + ' goal' in line:
-		result = re.search('<strong>(.*)</strong>', LINES[COUNT-1])
-		TOTAL = result.group(1)
-		break
-	COUNT = COUNT + 1
+    if 'of ' + GOAL + ' goal' in line:
+        result = re.search('<strong>(.*)</strong>', LINES[COUNT-1])
+        TOTAL = result.group(1)
+        break
+    COUNT = COUNT + 1
 
 STATUS = TOTAL + ' of ' + GOAL + ' raised'
 
-sc = SlackClient(SLACK_TOKEN)
+SLACK = SlackClient(SLACK_TOKEN)
 
-sc.api_call(
-	"chat.postMessage",
-	channel=CHANNEL,
-	text=STATUS
+SLACK.api_call(
+    "chat.postMessage",
+    channel=CHANNEL,
+    text=STATUS
 )
