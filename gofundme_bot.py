@@ -22,7 +22,7 @@ import requests
 from slackclient import SlackClient
 
 CONFIGFILENAME = 'config.ini'
-CONFIG = configparser.SafeConfigParser()
+CONFIG = configparser.ConfigParser()
 CONFIG.read(CONFIGFILENAME)
 SECTIONS = CONFIG.sections()
 
