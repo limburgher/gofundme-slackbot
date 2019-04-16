@@ -34,6 +34,7 @@ CHANNEL = str(CONFIG.get("Options", "channel"))
 OUTPUT = requests.get(URL)
 LINES = OUTPUT.text.split('\n')
 COUNT = 0
+TOTAL = "0"
 for line in LINES:
     if 'of ' + GOAL + ' goal' in line:
         result = re.search('<strong>(.*)</strong>', LINES[COUNT-1])
