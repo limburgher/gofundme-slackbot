@@ -19,7 +19,7 @@
 import re
 import configparser
 import requests
-from slackclient import SlackClient
+import slack
 
 CONFIGFILENAME = 'config.ini'
 CONFIG = configparser.ConfigParser()
@@ -44,10 +44,9 @@ for line in LINES:
 
 STATUS = TOTAL + ' of ' + GOAL + ' raised'
 
-SLACK = SlackClient(SLACK_TOKEN)
+SLACK = slack.WebClient(token=SLACK_TOKEN)
 
-SLACK.api_call(
-    "chat.postMessage",
+SLACK.chat_postMessage(
     channel=CHANNEL,
     text=STATUS
 )
