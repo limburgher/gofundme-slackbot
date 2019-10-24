@@ -35,10 +35,11 @@ OUTPUT = requests.get(URL)
 LINES = OUTPUT.text.split('\n')
 COUNT = 0
 TOTAL = "0"
+
 for line in LINES:
-    if 'of ' + GOAL + ' goal' in line:
-        result = re.search('<strong>(.*)</strong>', LINES[COUNT-1])
-        TOTAL = result.group(1)
+    if GOAL in line:
+        result = re.findall(r"\$\d+", line)
+        TOTAL = result[0]
         break
     COUNT = COUNT + 1
 
