@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ A simple script to post GoFundMe progress in a Slack channel """
 
-# Copyright (C) 2017 Gwyn Ciesla
+# Copyright (C) 2019 Gwyn Ciesla
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,8 +38,8 @@ TOTAL = "0"
 
 for line in LINES:
     if GOAL in line:
-        result = re.findall(r"\$\d+", line)
-        TOTAL = result[0]
+        result = re.findall(r"(\$\d+([,]\d+)?)", line)
+        TOTAL = result[0][0]
         break
     COUNT = COUNT + 1
 
