@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ A simple script to post GoFundMe progress in a Slack channel """
 
-# Copyright (C) 2019 Gwyn Ciesla
+# Copyright (C) 2021 Gwyn Ciesla
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 import re
 import configparser
 import requests
-import slack
+import slack_sdk
 
 CONFIGFILENAME = 'config.ini'
 CONFIG = configparser.ConfigParser()
@@ -45,7 +45,7 @@ for line in LINES:
 
 STATUS = TOTAL + ' of ' + GOAL + ' raised'
 
-SLACK = slack.WebClient(token=SLACK_TOKEN)
+SLACK = slack_sdk.WebClient(token=SLACK_TOKEN)
 
 SLACK.chat_postMessage(
     channel=CHANNEL,
